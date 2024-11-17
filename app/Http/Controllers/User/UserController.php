@@ -26,7 +26,7 @@ class UserController extends Controller
             $paramOutgoing = 'update';
             $searchUser = User::findOrFail(Crypt::decrypt($request->id));
         } else {
-            return redirect()->back('error', 'Paramater url tidak valid !');
+            return redirect()->back()->with('error', 'Paramater url tidak valid !');
         }
 
         $officers = DB::table('simi_pegawai')

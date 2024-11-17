@@ -23,7 +23,7 @@ class OfficerController extends Controller
             $paramOutgoing = 'update';
             $searchOfficer = OfficerModel::findOrFail(Crypt::decrypt($request->id));
         } else {
-            return redirect()->back('error', 'Paramater url tidak valid !');
+            return redirect()->back()->with('error', 'Paramater url tidak valid !');
         }
 
         $position = PositionModel::orderBy('jabatan', 'asc');

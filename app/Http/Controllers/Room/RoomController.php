@@ -22,7 +22,7 @@ class RoomController extends Controller
             $paramOutgoing = 'update';
             $searchRoom = RoomModel::findOrFail(Crypt::decrypt($request->id));
         } else {
-            return redirect()->back('error', 'Paramater url tidak valid !');
+            return redirect()->back()->with('error', 'Paramater url tidak valid !');
         }
 
         $data = [
