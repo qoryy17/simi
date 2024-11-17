@@ -38,11 +38,8 @@
         </div>
         <div class="user-info-dropdown">
             <div class="dropdown">
-                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                    <span class="user-icon">
-                        <img src="{{ asset('resources/vendors/images/photo1.jpg') }}" alt="" />
-                    </span>
-                    <span class="user-name">Qori Chairawan, S.Kom</span>
+                <a class="dropdown-toggle mt-2" href="#" role="button" data-toggle="dropdown">
+                    <span class="user-name">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href=""><i class="dw dw-user1"></i> Profile</a>
@@ -142,6 +139,7 @@
                     <ul class="submenu">
                         <li><a href="javascript:;">Pendataan</a></li>
                         <li><a href="javascript:;">Distribusi</a></li>
+                        <li><a href="{{ route('dashboard.satuan-barang') }}">Satuan</a></li>
                         <li><a href="javascript:;">Histori</a></li>
                     </ul>
                 </li>

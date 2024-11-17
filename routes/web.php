@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Officer\OfficerController;
 use App\Http\Controllers\Position\PositionController;
 use App\Http\Controllers\Authentication\SigninController;
+use App\Http\Controllers\Item\UnitItemController;
 use App\Http\Middleware\Auth\AuthMiddleware;
 use App\Http\Middleware\Auth\NonAuthMiddleware;
 
@@ -32,6 +33,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('/dashboard/jabatan', 'managePosition')->name('dashboard.jabatan');
         Route::get('/dashboard/ruangan', 'manageRoom')->name('dashboard.ruangan');
         Route::get('/dashboard/peminjaman', 'manageBorrowing')->name('dashboard.peminjaman');
+        Route::get('/dashboard/satuan-barang', 'manageUnitItem')->name('dashboard.satuan-barang');
+        Route::get('/dashboard/barang', 'manageItem')->name('dashboard.barang');
         Route::get('/dashboard/pengaturan', 'manageSetting')->name('dashboard.pengaturan');
         Route::post('/pengaturan/save', 'saveSetting')->name('pengaturan.save');
     });
@@ -66,5 +69,13 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('/pegawai/form/{param}/{id}', 'formOfficer')->name('guruPegawai.form');
         Route::post('/pegawai/save', 'saveOfficer')->name('guruPegawai.save');
         Route::delete('/pegawai/delete', 'deleteOfficer')->name('guruPegawai.delete');
+    });
+});
+
+Route::middleware(AuthMiddleware::class)->group(function () {
+    Route::controller(UnitItemController::class)->group(function () {
+        Route::get('/satuan-barang/form/{param}/{id}', 'formUnitItem')->name('satuanBarang.form');
+        Route::post('/satuan-barang/save', 'saveUnitItem')->name('satuanBarang.save');
+        Route::delete('/satuan-barang/delete', 'deleteUnitItem')->name('satuanBarang.delete');
     });
 });

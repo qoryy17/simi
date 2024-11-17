@@ -11,6 +11,7 @@ use App\Models\Setting\SettingModel;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Position\PositionModel;
 use App\Http\Requests\Setting\SettingRequest;
+use App\Models\Item\UnitItemModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 
@@ -69,6 +70,17 @@ class MainController extends Controller
             'rooms' => RoomModel::orderBy('created_at', 'DESC')->get()
         ];
         return view('room.rooms', $data);
+    }
+
+    public function manageUnitItem()
+    {
+        $data = [
+            'title' => 'Manajemen Satuan Barang',
+            'bc1' => 'Manajemen Barang',
+            'bc2' => 'Satuan Barang',
+            'unitItems' => UnitItemModel::orderBy('created_at', 'DESC')->get()
+        ];
+        return view('item.unit-items', $data);
     }
 
     public function manageBorrowing()
