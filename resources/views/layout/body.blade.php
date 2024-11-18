@@ -103,37 +103,37 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="{{ route('dashboard.home') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.home') }}" class="dropdown-toggle no-arrow {{ str_contains($title,'SIMI') ? "active" : "" }}">
                         <span class="micon bi bi-house "></span><span class="mtext">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.pengguna') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.pengguna') }}" class="dropdown-toggle no-arrow {{ str_contains($title,'Pengguna') ? "active" : "" }}">
                         <span class="micon bi bi-person "></span><span class="mtext">Pengguna</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.guru-pegawai') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.guru-pegawai') }}" class="dropdown-toggle no-arrow {{ str_contains($title,'Pegawai') ? "active" : "" }}">
                         <span class="micon bi bi-people "></span><span class="mtext">Guru & Pegawai</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.jabatan') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.jabatan') }}" class="dropdown-toggle no-arrow {{ str_contains($title,'Jabatan') ? "active" : "" }}">
                         <span class="micon bi bi-person-plus "></span><span class="mtext">Jabatan</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.ruangan') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.ruangan') }}" class="dropdown-toggle no-arrow {{ str_contains($title,'Ruangan') ? "active" : "" }}">
                         <span class="micon bi bi-building "></span><span class="mtext">Ruangan</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.peminjaman') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.peminjaman') }}" class="dropdown-toggle no-arrow {{ str_contains($title,'Peminjaman') ? "active" : "" }}">
                         <span class="micon bi bi-folder "></span><span class="mtext">Peminjaman</span>
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
+                    <a href="javascript:;" class="dropdown-toggle {{str_contains($title,'Barang') ? "active" : "" }}">
                         <span class="micon bi bi-stack"></span><span class="mtext">Kelola Barang</span>
                     </a>
                     <ul class="submenu">
@@ -145,7 +145,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.pengaturan') }}" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('dashboard.pengaturan') }}" class="dropdown-toggle no-arrow {{str_contains($title,'Pengaturan') ? "active" : "" }}">
                         <span class="micon bi bi-gear "></span><span class="mtext">Pengaturan</span>
                     </a>
                 </li>
