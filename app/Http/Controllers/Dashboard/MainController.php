@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Item\ConditionItemModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Room\RoomModel;
@@ -81,6 +82,16 @@ class MainController extends Controller
             'unitItems' => UnitItemModel::orderBy('created_at', 'DESC')->get()
         ];
         return view('item.unit-items', $data);
+    }
+    public function manageConditionItem()
+    {
+        $data = [
+            'title' => 'Manajemen Kondisi Barang',
+            'bc1' => 'Manajemen Barang',
+            'bc2' => 'Kondisi Barang',
+            'conditionItems' => ConditionItemModel::orderBy('created_at', 'DESC')->get()
+        ];
+        return view('item.condition-items', $data);
     }
 
     public function manageBorrowing()

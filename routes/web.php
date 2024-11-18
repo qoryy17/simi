@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication\AuthController;
+use App\Http\Controllers\Item\ConditionItemController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Room\RoomController;
 use App\Http\Controllers\User\UserController;
@@ -34,6 +35,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('/dashboard/ruangan', 'manageRoom')->name('dashboard.ruangan');
         Route::get('/dashboard/peminjaman', 'manageBorrowing')->name('dashboard.peminjaman');
         Route::get('/dashboard/satuan-barang', 'manageUnitItem')->name('dashboard.satuan-barang');
+        Route::get('/dashboard/kondisi-barang', 'manageConditionItem')->name('dashboard.kondisi-barang');
         Route::get('/dashboard/barang', 'manageItem')->name('dashboard.barang');
         Route::get('/dashboard/pengaturan', 'manageSetting')->name('dashboard.pengaturan');
         Route::post('/pengaturan/save', 'saveSetting')->name('pengaturan.save');
@@ -77,5 +79,12 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::get('/satuan-barang/form/{param}/{id}', 'formUnitItem')->name('satuanBarang.form');
         Route::post('/satuan-barang/save', 'saveUnitItem')->name('satuanBarang.save');
         Route::delete('/satuan-barang/delete', 'deleteUnitItem')->name('satuanBarang.delete');
+    });
+});
+Route::middleware(AuthMiddleware::class)->group(function () {
+    Route::controller(ConditionItemController::class)->group(function () {
+        Route::get('/kondisi-barang/form/{param}/{id}', 'formConditionItem')->name('kondisiBarang.form');
+        Route::post('/kondisi-barang/save', 'saveConditionItem')->name('kondisiBarang.save');
+        Route::delete('/kondisi-barang/delete', 'deleteConditionItem')->name('kondisiBarang.delete');
     });
 });
