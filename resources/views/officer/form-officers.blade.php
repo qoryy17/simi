@@ -127,9 +127,10 @@
                 </div>
             </div>
             <div class="footer-wrap pd-20 mb-20 card-box">
-                Copyright &copy; @SIMI
-                <a href="https://github.com/dropways" style="text-decoration: none;" target="_blank">Qori Chairawan,
-                    S.Kom</a>
+                Copyright &copy; {{ date('Y') }}
+                <a href="" style="text-decoration: none;" target="_blank">
+                    {{ env('APP_NAME') }} - {{ env('APP_NAME_DESCRIPTION') }}
+                </a>
             </div>
         </div>
     </div>

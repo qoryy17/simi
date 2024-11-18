@@ -37,7 +37,8 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <input class="form-control" id="id" name="id" required autocomplete="off"
-                                    type="text" placeholder="ID" value="{{ Crypt::encrypt($conditionItem->id) }}" readonly />
+                                    type="text" placeholder="ID" value="{{ Crypt::encrypt($conditionItem->id) }}"
+                                    readonly />
                             </div>
                         @endif
                         <div class="form-group" hidden>
@@ -87,9 +88,10 @@
                 </div>
             </div>
             <div class="footer-wrap pd-20 mb-20 card-box">
-                Copyright &copy; @SIMI
-                <a href="#" style="text-decoration: none;" target="_blank">Qori Chairawan,
-                    S.Kom</a>
+                Copyright &copy; {{ date('Y') }}
+                <a href="" style="text-decoration: none;" target="_blank">
+                    {{ env('APP_NAME') }} - {{ env('APP_NAME_DESCRIPTION') }}
+                </a>
             </div>
         </div>
     </div>

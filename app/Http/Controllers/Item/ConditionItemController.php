@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Item;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Item\ConditionItemRequest;
-use App\Http\Requests\Item\ConditionRequest;
 use App\Models\Item\ConditionItemModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
