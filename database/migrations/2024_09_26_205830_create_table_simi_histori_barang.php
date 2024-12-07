@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('simi_histori_barang', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('barang_id');
+            $table->char('barang_id');
             $table->string('kode_barang');
             $table->unsignedBigInteger('ruangan_id');
             $table->timestamps();

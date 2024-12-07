@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Setting\SettingModel;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
@@ -30,6 +31,17 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'role' => 'Superadmin',
             'blokir' => 'T'
+        ]);
+
+        SettingModel::create([
+            'cabdis_provinsi' => 'Sumatera Utara',
+            'cabdis_kabupaten' => 'Lubuk Pakam',
+            'npsn' => '000000',
+            'nama_sekolah' => 'SMK NEGERI 1 BERINGIN',
+            'alamat' => 'Jl Pendidikan No 3 Emplasemen Kuala Namu',
+            'email' => 'info@smkn1beringin.sch.id',
+            'telepon' => '000-0000',
+            'website' => 'smkn1beringin.sch.id',
         ]);
     }
 }

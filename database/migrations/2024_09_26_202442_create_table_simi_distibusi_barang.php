@@ -22,7 +22,6 @@
                 $table->unsignedBigInteger('verifikasi_id');
                 $table->bigInteger('penerima');
                 $table->bigInteger('diinput_oleh');
-                $table->text('file_qrcode');
                 $table->timestamps();
 
                 $table->foreign('ruangan_id')->references('id')->on('simi_ruangan')->onDelete('restrict')->onUpdate('cascade');

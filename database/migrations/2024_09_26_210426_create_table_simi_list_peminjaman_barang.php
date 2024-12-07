@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('simi_list_peminjaman_barang', function (Blueprint $table) {
             $table->id();
             $table->string('kode_peminjaman');
-            $table->unsignedBigInteger('barang_id');
+            $table->char('barang_id');
             $table->string('kode_barang');
             $table->timestamps();
 

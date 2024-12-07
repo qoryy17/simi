@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthMiddleware
+class NonVerificatorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -23,6 +23,10 @@ class AuthMiddleware
         if (Auth::user()->blokir == 'Y') {
             Auth::logout();
             return redirect()->route('autentifikasi.signin')->with('error', 'Akun anda terblokir !');
+        }
+
+        if (Auth::user()->role == 'Verifikator') {
+            return redirect()->route('dashboard.home')->with('error', 'Anda tidak dapat mengakses halaman ini !');
         }
         return $next($request);
     }

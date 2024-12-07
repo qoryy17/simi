@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('simi_list_distribusi_barang', function (Blueprint $table) {
             $table->id();
             $table->string('kode_distribusi');
-            $table->unsignedBigInteger('barang_id');
+            $table->char('barang_id');
             $table->string('kode_barang');
             $table->text('catatan')->nullable();
             $table->timestamps();

@@ -1,22 +1,24 @@
 @extends('layout.body')
 @section('title', $title)
 @section('content')
-
     <div class="main-container">
         <div class="pd-ltr-20 xs-pd-20-10">
             <div class="page-header">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>{{ $bc1 }}</h4>
+                            <h4>{{ $bc2 }}</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="{{ route('dashboard.home') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">
+                                <li class="breadcrumb-item" aria-current="page">
                                     {{ $bc1 }}
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    {{ $bc2 }}
                                 </li>
                             </ol>
                         </nav>
@@ -26,18 +28,17 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <a href="{{ route('jabatan.form', ['param' => 'add', 'id' => Crypt::encrypt('null')]) }}"
+                    <a href="{{ route('barang.form', ['param' => 'add', 'id' => Crypt::encrypt('null')]) }}"
                         class="btn btn-sm btn-primary"><i class="micon bi bi-person-plus"></i> Add
                     </a>
                 </div>
                 <div class="pb-20">
-                    <table class="data-table table hover nowarp">
+                    <table class="data-table table hover nowrap">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th class="table-plus datatable-nosort">Jabatan</th>
-                                <th>Kode Jabatan</th>
-                                <th>Keterangan</th>
+                                <th class="table-plus datatable-nosort">Kode Barang</th>
+                                <th>Nama Barang</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th class="datatable-nosort">Action</th>
@@ -47,12 +48,11 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($positions as $item)
+                            @foreach ($items as $item)
                                 <tr>
-                                    <td>{{ $no }}</td>
-                                    <td class="table-plus">{{ $item->jabatan }}</td>
-                                    <td>{{ $item->kode_jabatan }}</td>
-                                    <td>{{ $item->keterangan }}</td>
+                                    <td>1</td>
+                                    <td class="table-plus">{{ $item->kode_barang }}</td>
+                                    <td>{{ $item->nama_barang }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
@@ -63,7 +63,11 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('jabatan.form', ['param' => 'edit', 'id' => Crypt::encrypt($item->id)]) }}">
+                                                    href="{{ route('barang.detail', ['id' => Crypt::encrypt($item->id)]) }}">
+                                                    <i class="dw dw-eye"></i> View
+                                                </a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('barang.form', ['param' => 'edit', 'id' => Crypt::encrypt($item->id)]) }}">
                                                     <i class="dw dw-edit2"></i> Edit
                                                 </a>
                                                 <a class="dropdown-item btn-delete" href="#" data-toggle="modal"
@@ -75,7 +79,6 @@
                                                 </a>
                                             </div>
                                         </div>
-
                                     </td>
                                 </tr>
                                 @php
@@ -94,7 +97,7 @@
                                 Yakin ingin menghapus data ini ?
                             </h4>
                             <small>Data yang dihapus tidak dapat dikembalikan !</small>
-                            <form action="{{ route('jabatan.delete') }}" method="POST">
+                            <form action="{{ route('pengguna.delete') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <div class="form-group" hidden>

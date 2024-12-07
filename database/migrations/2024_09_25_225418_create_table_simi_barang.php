@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('simi_barang', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->default(Str::uuid());
             $table->string('kode_barang');
             $table->text('nama_barang');
             $table->string('jenis');
@@ -34,8 +35,7 @@ return new class extends Migration
             $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('diinput_oleh');
             $table->unsignedBigInteger('verifikasi_id')->nullable();
-            $table->text('file_qrcode');
-            $table->text('file_image');
+            $table->text('file_image')->nullable();
             $table->timestamps();
 
             $table->foreign('satuan_barang_id')->references('id')->on('simi_satuan_barang')->onDelete('set null')->onUpdate('cascade');

@@ -2,29 +2,36 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Item\ConditionItemModel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Item\ItemModel;
 use App\Models\Room\RoomModel;
+use App\Models\Item\UnitItemModel;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Setting\SettingModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Position\PositionModel;
-use App\Http\Requests\Setting\SettingRequest;
-use App\Models\Item\UnitItemModel;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Item\ConditionItemModel;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Setting\SettingRequest;
 
 class MainController extends Controller
 {
     public function home()
     {
+        if (Auth::user()->role == 'Verifikator') {
+            $view = 'home.home-verificator';
+        } else {
+            $view = 'home.home';
+        }
         $data = [
             'title' => 'Selamat Datang Di SIMI',
             'page' => 'Dashboard SIMI'
         ];
-        return view('home.home', $data);
+        return view($view, $data);
     }
 
     public function manageUser()
@@ -73,6 +80,17 @@ class MainController extends Controller
         return view('room.rooms', $data);
     }
 
+    public function manageItem()
+    {
+        $data = [
+            'title' => 'Manajemen Pendataan Barang',
+            'bc1' => 'Manajemen Barang',
+            'bc2' => 'Pendataan Barang',
+            'items' => ItemModel::orderBy('created_at', 'DESC')->get()
+        ];
+        return view('item.items', $data);
+    }
+
     public function manageUnitItem()
     {
         $data = [
@@ -83,6 +101,7 @@ class MainController extends Controller
         ];
         return view('item.unit-items', $data);
     }
+
     public function manageConditionItem()
     {
         $data = [
@@ -93,6 +112,7 @@ class MainController extends Controller
         ];
         return view('item.condition-items', $data);
     }
+
 
     public function manageBorrowing()
     {
@@ -114,7 +134,7 @@ class MainController extends Controller
         return view('setting.setting-app', $data);
     }
 
-    public function saveSetting(SettingRequest $request) //: RedirectResponse
+    public function saveSetting(SettingRequest $request): RedirectResponse
     {
         $request->validated();
         $formData = [
@@ -131,10 +151,11 @@ class MainController extends Controller
         $save = null;
 
         $setting = SettingModel::first();
+        $directory = 'images/config/';
 
         if ($setting) {
             if ($request->file('logo')) {
-                $directory = 'images/config/';
+
                 if (Storage::disk('public')->exists($directory . $setting->logo)) {
                     Storage::disk('public')->delete($directory . $setting->logo);
                 }
@@ -151,13 +172,14 @@ class MainController extends Controller
 
                 $fileLogo = $request->file('logo');
                 $fileHashname = $fileLogo->hashName();
+                $uploadPath = $directory . $fileHashname;
 
                 $fileUpload = $fileLogo->storeAs($directory, $fileHashname, 'public');
 
                 if (!$fileUpload) {
                     return redirect()->back()->with('error', 'Unggah logo gagal !')->withInput();
                 }
-                $formData['logo'] = $fileHashname;
+                $formData['logo'] = $uploadPath;
             }
 
             $save = $setting->update($formData);
@@ -175,16 +197,16 @@ class MainController extends Controller
                 ]
             );
 
-            $directory = 'images/config/';
             $fileLogo = $request->file('logo');
             $fileHashname = $fileLogo->hashName();
+            $uploadPath = $directory . $fileHashname;
 
             $fileUpload = $fileLogo->storeAs($directory, $fileHashname, 'public');
 
             if (!$fileUpload) {
                 return redirect()->back()->with('error', 'Unggah logo gagal !')->withInput();
             }
-            $formData['logo'] = $fileHashname;
+            $formData['logo'] = $uploadPath;
             $save = SettingModel::create($formData);
             $success = 'Pengaturan berhasil disimpan !';
             $error = 'Pengaturan gagal disimpan !';

@@ -34,7 +34,7 @@
                             </div>
                             <div class="widget-icon">
                                 <div class="icon" data-color="#fff" style="color: #fff;">
-                                    <i class="micon bi-boxes"></i>
+                                    <i class="micon bi-person"></i>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="widget-icon">
                                 <div class="icon" data-color="#fff" style="color: #fff;">
-                                    <i class="micon bi-cloud"></i>
+                                    <i class="micon bi-person"></i>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="widget-icon">
                                 <div class="icon" data-color="#fff" style="color: #fff;">
-                                    <i class="micon bi-building"></i>
+                                    <i class="micon bi-person"></i>
                                 </div>
                             </div>
                         </div>
@@ -182,57 +182,6 @@
                                     </div>
                                     <div class="cta flex-shrink-0">
                                         <a href="#" class="btn btn-sm btn-outline-secondary">Detail</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-20">
-                    <div class="card-box height-100-p pd-20 min-height-200px">
-                        <div class="d-flex justify-content-between pb-10">
-                            <div class="h5 mb-0">Peminjaman Telat Kembali</div>
-                            <div class="dropdown">
-                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                    data-color="#1b3133" href="#" role="button" data-toggle="dropdown"
-                                    style="color: rgb(27, 49, 51);" aria-expanded="false">
-                                    <i class="dw dw-more"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list" style="">
-                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> Lihat</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="user-list">
-                            <ul>
-                                <li class="d-flex align-items-center justify-content-between">
-                                    <div class="name-avatar d-flex align-items-center pr-2">
-                                        <div class="txt">
-                                            <div class="font-14 weight-600">Dr. Neil Wagner</div>
-                                            <div class="font-12 weight-500" data-color="#b2b1b6"
-                                                style="color: rgb(178, 177, 182);">
-                                                Lewat 3 hari
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cta flex-shrink-0">
-                                        <a href="#" class="btn btn-sm btn-outline-primary">Selesai</a>
-                                    </div>
-                                </li>
-                                <li class="d-flex align-items-center justify-content-between">
-                                    <div class="name-avatar d-flex align-items-center pr-2">
-                                        <div class="txt">
-                                            <div class="font-14 weight-600">Dr. Neil Wagner</div>
-                                            <div class="font-12 weight-500" data-color="#b2b1b6"
-                                                style="color: rgb(178, 177, 182);">
-                                                Lewat 3 hari
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cta flex-shrink-0">
-                                        <a href="#" class="btn btn-sm btn-outline-primary">Selesai</a>
                                     </div>
                                 </li>
                             </ul>
