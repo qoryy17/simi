@@ -17,6 +17,7 @@ use App\Models\Setting\SettingModel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Verification\VerificationModel;
 use PDF;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class ItemController extends Controller
 {
@@ -56,8 +57,14 @@ class ItemController extends Controller
         $unitItem = UnitItemModel::find($searchItem->satuan_barang_id);
         $conditionItem = ConditionItemModel::find($searchItem->kondisi_barang_id);
         $user = User::find($searchItem->diinput_oleh);
-        $verification = VerificationModel::find($searchItem->verifikasi_id);
-        $verifikator =  User::find($verification->verifikator_id);
+
+        if ($searchItem->verifikasi_id == null) {
+            $verification = null;
+            $verifikator =  null;
+        } else {
+            $verification = VerificationModel::find($searchItem->verifikasi_id);
+            $verifikator =  User::find($verification->verifikator_id);
+        }
 
         $data = [
             'title' => 'Verifikasi Barang',
@@ -246,5 +253,26 @@ class ItemController extends Controller
         $pdf = PDF::loadView('item.pdf.template-pdf-collection', $data);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->stream($pageTitle . '.pdf');
+    }
+    public function printItemCard(Request $request)
+    {
+        $searchItem = ItemModel::findOrFail(Crypt::decrypt($request->id));
+        $pageTitle = 'Kartu Inventaris ' . $searchItem->nama_barang . ' Tanggal ' . $searchItem->created_at;
+
+
+        $data = [
+            'title' => 'Verifikasi Barang',
+            'bc1' => 'Verifikasi Barang',
+            'bc2' => 'Detail : ' . $searchItem->nama_barang,
+            'item' => $searchItem,
+            'institusi' => SettingModel::first(),
+            'pageTitle' => $pageTitle
+        ];
+
+        $pdf = PDF::loadView('item.pdf.template-pdf-inventory-card', $data);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream($pageTitle . '.pdf');
+
+        // return view('item.pdf.template-pdf-inventory-card', $data);
     }
 }

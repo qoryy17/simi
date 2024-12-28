@@ -34,8 +34,15 @@ class VerificatorController extends Controller
         $unitItem = UnitItemModel::find($searchItem->satuan_barang_id);
         $conditionItem = ConditionItemModel::find($searchItem->kondisi_barang_id);
         $user = User::find($searchItem->diinput_oleh);
-        $verification = VerificationModel::find($searchItem->verifikasi_id);
-        $verifikator =  User::find($verification->verifikator_id);
+
+
+        if ($searchItem->verifikasi_id == null) {
+            $verification = null;
+            $verifikator =  null;
+        } else {
+            $verification = VerificationModel::find($searchItem->verifikasi_id);
+            $verifikator =  User::find($verification->verifikator_id);
+        }
 
         $data = [
             'title' => 'Verifikasi Barang',

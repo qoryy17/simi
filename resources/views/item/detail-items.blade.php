@@ -173,8 +173,9 @@
                         <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Lembar Pendataan
                     </a>
                     @if ($verification && $verification->status == 'Disetujui')
-                        <a href="javascript:void(0);" class="btn btn-sm btn-warning">
-                            <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Kartu Barang
+                        <a href="{{ route('barang.print-card', ['id' => Crypt::encrypt($item->id)]) }}"
+                            class="btn btn-sm btn-warning">
+                            <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Kartu Inventaris
                         </a>
                     @endif
                 </div>

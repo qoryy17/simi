@@ -50,7 +50,7 @@
                             @endphp
                             @foreach ($unitItems as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ $no }}</td>
                                     <td class="table-plus">{{ $item->satuan }}</td>
                                     <td>{{ $item->keterangan }}</td>
                                     <td>{{ $item->created_at }}</td>
