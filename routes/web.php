@@ -13,6 +13,8 @@ use App\Http\Controllers\Position\PositionController;
 use App\Http\Controllers\Item\ConditionItemController;
 use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Authentication\SigninController;
+use App\Http\Controllers\Item\DistributionItemController;
+use App\Http\Controllers\Verification\VerificationController;
 use App\Http\Controllers\Verificator\VerificatorController;
 use App\Http\Middleware\Auth\NonVerificatorMiddleware;
 use App\Http\Middleware\Auth\SuperadminMiddleware;
@@ -23,6 +25,10 @@ Route::get('/', function () {
 
 Route::controller(SigninController::class)->group(function () {
     Route::get('/signin', 'signin')->name('autentifikasi.signin')->middleware(NonAuthMiddleware::class);
+});
+
+Route::controller(VerificationController::class)->group(function () {
+    Route::get('/verification/{param}', 'verificationItem')->name('verification.item');
 });
 
 Route::controller(AuthController::class)->group(function () {
@@ -41,6 +47,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
             Route::get('/dashboard/peminjaman', 'manageBorrowing')->name('dashboard.peminjaman');
             Route::get('/dashboard/satuan-barang', 'manageUnitItem')->name('dashboard.satuan-barang');
             Route::get('/dashboard/kondisi-barang', 'manageConditionItem')->name('dashboard.kondisi-barang');
+            Route::get('/dashboard/distribusi-barang', 'manageDistributionItem')->name('dashboard.distribusi-barang');
             Route::get('/dashboard/barang', 'manageItem')->name('dashboard.barang');
         });
         Route::middleware(SuperadminMiddleware::class)->group(function () {
@@ -106,6 +113,14 @@ Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group
         Route::get('/kondisi-barang/form/{param}/{id}', 'formConditionItem')->name('kondisiBarang.form');
         Route::post('/kondisi-barang/save', 'saveConditionItem')->name('kondisiBarang.save');
         Route::delete('/kondisi-barang/delete', 'deleteConditionItem')->name('kondisiBarang.delete');
+    });
+});
+
+Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group(function () {
+    Route::controller(DistributionItemController::class)->group(function () {
+        Route::get('/distribusi-barang/form/{param}/{id}', 'formDistributionItem')->name('distribusiBarang.form');
+        Route::post('/distribusi-barang/save', 'saveDistributionItem')->name('distribusiBarang.save');
+        Route::delete('/distribusi-barang/delete', 'deleteDistributionItem')->name('distribusiBarang.delete');
     });
 });
 

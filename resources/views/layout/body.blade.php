@@ -150,7 +150,7 @@
                     <ul class="submenu">
                         @if (Auth::user()->role == 'Superadmin' || Auth::user()->role == 'Operator')
                             <li><a href="{{ route('dashboard.barang') }}">Pendataan</a></li>
-                            <li><a href="javascript:;">Distribusi</a></li>
+                            <li><a href="{{ route('dashboard.distribusi-barang') }}">Distribusi</a></li>
                             <li><a href="{{ route('dashboard.satuan-barang') }}">Satuan</a></li>
                             <li><a href="{{ route('dashboard.kondisi-barang') }}">Kondisi</a></li>
                             <li><a href="javascript:;">Histori</a></li>

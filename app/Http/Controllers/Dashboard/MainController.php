@@ -17,6 +17,7 @@ use App\Models\Position\PositionModel;
 use App\Models\Item\ConditionItemModel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Setting\SettingRequest;
+use App\Models\Item\DistributionModel;
 
 class MainController extends Controller
 {
@@ -113,6 +114,16 @@ class MainController extends Controller
         return view('item.condition-items', $data);
     }
 
+    public function manageDistributionItem()
+    {
+        $data = [
+            'title' => 'Manajemen Distribusi Barang',
+            'bc1' => 'Manajemen Barang',
+            'bc2' => 'Distribusi Barang',
+            'distributionItems' => DistributionModel::orderBy('created_at', 'DESC')->get()
+        ];
+        return view('item.distribution-items', $data);
+    }
 
     public function manageBorrowing()
     {
@@ -156,8 +167,8 @@ class MainController extends Controller
         if ($setting) {
             if ($request->file('logo')) {
 
-                if (Storage::disk('public')->exists($directory . $setting->logo)) {
-                    Storage::disk('public')->delete($directory . $setting->logo);
+                if (Storage::disk('public')->exists($setting->logo)) {
+                    Storage::disk('public')->delete($setting->logo);
                 }
                 $request->validate(
                     [

@@ -39,16 +39,16 @@
             <table class="table-item" cellpadding='5' border="1">
                 <tr>
                     <td style="text-align: center;">
-                        <img src="{{ public_path('storage/' . $institusi->logo) }}"
+                        <img src="{{public_path('storage/' . $institusi->logo) }}"
                             alt="Gambar {{ $institusi->nama_sekolah }}">
                     </td>
                     <td>
                         {{ $institusi->nama_sekolah }} <br>
                         Label Inventaris <br>
-                        Kode Barang : {{ $item->kode_barang }}
+                        Kode Barang : {{  $item->kode_barang }}
                     </td>
                     <td>
-                        QR CODE
+                        <img src="data:image/png;base64,{{ $qrCode }}" alt="QR Code {{ $qrCode }}">
                     </td>
                 </tr>
             </table>

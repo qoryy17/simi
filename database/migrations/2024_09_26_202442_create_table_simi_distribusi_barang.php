@@ -11,7 +11,7 @@
          */
         public function up(): void
         {
-            Schema::create('simi_distibusi_barang', function (Blueprint $table) {
+            Schema::create('simi_distribusi_barang', function (Blueprint $table) {
                 $table->id();
                 $table->string('kode_distribusi');
                 $table->string('nomor_bast')->nullable();

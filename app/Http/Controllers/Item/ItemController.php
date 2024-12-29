@@ -16,6 +16,7 @@ use App\Models\Item\ConditionItemModel;
 use App\Models\Setting\SettingModel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Verification\VerificationModel;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use PDF;
 use Symfony\Component\CssSelector\Node\FunctionNode;
 
@@ -258,7 +259,8 @@ class ItemController extends Controller
     {
         $searchItem = ItemModel::findOrFail(Crypt::decrypt($request->id));
         $pageTitle = 'Kartu Inventaris ' . $searchItem->nama_barang . ' Tanggal ' . $searchItem->created_at;
-
+        $url = url('/verification') . '/' . $searchItem->id;
+        $qrCode = base64_encode(QrCode::format('png')->size(60)->generate($url));
 
         $data = [
             'title' => 'Verifikasi Barang',
@@ -266,7 +268,8 @@ class ItemController extends Controller
             'bc2' => 'Detail : ' . $searchItem->nama_barang,
             'item' => $searchItem,
             'institusi' => SettingModel::first(),
-            'pageTitle' => $pageTitle
+            'pageTitle' => $pageTitle,
+            'qrCode' => $qrCode
         ];
 
         $pdf = PDF::loadView('item.pdf.template-pdf-inventory-card', $data);
