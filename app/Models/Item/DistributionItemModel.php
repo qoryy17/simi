@@ -5,10 +5,9 @@ namespace App\Models\Item;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DistributionModel extends Model
+class DistributionItemModel extends Model
 {
     use HasFactory;
-
     protected $table = 'simi_distribusi_barang';
     protected $primaryKey = 'id';
 

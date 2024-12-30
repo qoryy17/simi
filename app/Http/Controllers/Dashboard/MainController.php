@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Models\Item\DistributionItemModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Item\ItemModel;
@@ -17,7 +18,6 @@ use App\Models\Position\PositionModel;
 use App\Models\Item\ConditionItemModel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Setting\SettingRequest;
-use App\Models\Item\DistributionModel;
 
 class MainController extends Controller
 {
@@ -120,7 +120,7 @@ class MainController extends Controller
             'title' => 'Manajemen Distribusi Barang',
             'bc1' => 'Manajemen Barang',
             'bc2' => 'Distribusi Barang',
-            'distributionItems' => DistributionModel::orderBy('created_at', 'DESC')->get()
+            'distributionItems' => DistributionItemModel::orderBy('created_at', 'DESC')->get()
         ];
         return view('item.distribution-items', $data);
     }
@@ -167,8 +167,8 @@ class MainController extends Controller
         if ($setting) {
             if ($request->file('logo')) {
 
-                if (Storage::disk('public')->exists($setting->logo)) {
-                    Storage::disk('public')->delete($setting->logo);
+                if (Storage::disk('public')->exists($directory.$setting->logo)) {
+                    Storage::disk('public')->delete($directory.$setting->logo);
                 }
                 $request->validate(
                     [
