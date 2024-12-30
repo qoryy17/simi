@@ -16,16 +16,14 @@
                 $table->string('kode_distribusi');
                 $table->string('nomor_bast')->nullable();
                 $table->unsignedBigInteger('ruangan_id');
-                $table->unsignedBigInteger('list_distribusi_id');
                 $table->text('keterangan')->nullable();
                 $table->enum('status', ['Pratinjau', 'Pengajuan', 'Selesai']);
-                $table->unsignedBigInteger('verifikasi_id');
+                $table->unsignedBigInteger('verifikasi_id')->nullable();
                 $table->bigInteger('penerima');
                 $table->bigInteger('diinput_oleh');
                 $table->timestamps();
 
                 $table->foreign('ruangan_id')->references('id')->on('simi_ruangan')->onDelete('restrict')->onUpdate('cascade');
-                $table->foreign('list_distribusi_id')->references('id')->on('simi_list_distribusi_barang')->onDelete('restrict')->onUpdate('cascade');
             });
         }
 
@@ -34,6 +32,6 @@
          */
         public function down(): void
         {
-            Schema::dropIfExists('simi_distibusi_barang');
+            Schema::dropIfExists('simi_distribusi_barang');
         }
     };

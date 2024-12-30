@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('simi_list_distribusi_barang', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_distribusi');
+            $table->unsignedBigInteger('distribusi_barang_id');
             $table->char('barang_id');
             $table->string('kode_barang');
             $table->text('catatan')->nullable();
             $table->timestamps();
 
-            $table->foreign('barang_id')->references('id')->on('simi_barang')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('barang_id')->references('id')->on('simi_barang')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('distribusi_barang_id')->references('id')->on('simi_distribusi_barang')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -120,7 +120,7 @@ class MainController extends Controller
             'title' => 'Manajemen Distribusi Barang',
             'bc1' => 'Manajemen Barang',
             'bc2' => 'Distribusi Barang',
-            'distributionItems' => DistributionItemModel::orderBy('created_at', 'DESC')->get()
+            'distributionItems' => DistributionItemModel::orderBy('created_at', 'DESC')->get(), //join ke tabel room
         ];
         return view('item.distribution-items', $data);
     }
@@ -167,8 +167,8 @@ class MainController extends Controller
         if ($setting) {
             if ($request->file('logo')) {
 
-                if (Storage::disk('public')->exists($directory.$setting->logo)) {
-                    Storage::disk('public')->delete($directory.$setting->logo);
+                if (Storage::disk('public')->exists($directory . $setting->logo)) {
+                    Storage::disk('public')->delete($directory . $setting->logo);
                 }
                 $request->validate(
                     [

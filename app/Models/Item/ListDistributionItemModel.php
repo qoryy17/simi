@@ -4,6 +4,7 @@ namespace App\Models\Item;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ListDistributionItemModel extends Model
 {
@@ -12,11 +13,16 @@ class ListDistributionItemModel extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'kode_distribusi',
+        'distribusi_barang_id',
         'barang_id',
         'kode_barang',
         'catatan',
     ];
 
     public $timestamps = true;
+
+    public function distributionItems(): BelongsTo
+    {
+        return $this->belongsTo(DistributionItemModel::class);
+    }
 }

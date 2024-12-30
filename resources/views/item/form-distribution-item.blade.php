@@ -25,6 +25,15 @@
                     </div>
                 </div>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="card card-box mb-30">
                 <div class="card-body">
                     <form action="{{ route('distribusiBarang.save') }}" method="POST">
@@ -50,6 +59,18 @@
                                 type="text" placeholder="Parameter" value="{{ $param }}" readonly />
                         </div>
                         <div class="form-group">
+                            <label for="kodeDistribusi">
+                                Kode Distribusi
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input class="form-control" id="kodeDistribusi" name="kodeDistribusi" required readonly
+                                autocomplete="off" type="text" placeholder="Nomor Bast"
+                                value="{{ $distributionCode }}" />
+                            @error('kodeDistribusi')
+                                <small class="text-danger">* {{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="nomorBast">
                                 Nomor Bast
                                 <span class="text-danger">*</span>
@@ -66,8 +87,7 @@
                                 Ruangan
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="custom-select2 form-control" name="ruangan" id="ruangan"
-                                style="width: 100%;">
+                            <select class="custom-select2 form-control" name="ruangan" id="ruangan" style="width: 100%;">
                                 <option value="">Pilih Ruangan</option>
                                 @if (!$rooms)
                                     <option>Ruangan belum tersedia...</option>
@@ -86,28 +106,26 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="listDistributionItem">
-                                List Distribusi Barang
+                            <label for="penerima">
+                                Penerima
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="custom-select2 form-control" name="listDistributionItem" id="listDistributionItem"
-                                style="width: 100%;">
-                                <option value="" >Pilih List Distribusi Barang</option>
-                                @if (!$listDistributionItems)
-                                    <option>List Distribusi Barang belum tersedia...</option>
+                            <select class="custom-select2 form-control" name="penerima" id="penerima" style="width: 100%;">
+                                <option value="">Pilih Penerima</option>
+                                @if (!$officers)
+                                    <option>Penerima belum tersedia...</option>
                                 @else
-                                    @foreach ($listDistributionItems as $item)
-                                        <option value="{{ $item->id }}"
-                                            @if (old('listDistributionItem') == $item->id) selected @endif
-                                            @if ($item && $item->barang_id == $item->id) selected @endif>
-                                            {{ $item->kode_distribusi }}
+                                    @foreach ($officers as $item)
+                                        <option @if ($distributionItem && $distributionItem->penerima == $item->id) selected @endif
+                                            @if (old('penerima') == $item->id) selected @endif value="{{ $item->id }}">
+                                            {{ $item->nama }} ({{ $item->jabatan }})
                                         </option>
                                     @endforeach
                                 @endif
+                                @error('penerima')
+                                    <small class="text-danger">* {{ $message }}</small>
+                                @enderror
                             </select>
-                            @error('listDistributionItem')
-                                <small class="text-danger">* {{ $message }}</small>
-                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="keterangan">
@@ -119,23 +137,6 @@
                                 <small class="text-danger">* {{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="status">
-                                Status
-                                <span class="text-danger">*</span>
-                            </label>
-                            <select class="custom-select2 form-control" name="status" id="status"
-                                style="width: 100%;">
-                                <option value="" >Pilih Status</option>
-                                <option value="Pratinjau">Pratinjau</option>
-                                <option value="Pengajuan">Pengajuan</option>
-                                <option value="Selesai">Selesai</option>
-                            </select>
-                            @error('status')
-                                <small class="text-danger">* {{ $message }}</small>
-                            @enderror
-                        </div>
-
                         <div class="d-grid gap-2 mx-auto">
                             <button type="submit" class="btn btn-sm btn-primary">
                                 <i class="micon bi bi-save"></i> Save
@@ -147,7 +148,6 @@
                                 <i class="micon bi bi-reply"></i> Back
                             </a>
                         </div>
-
                     </form>
                 </div>
             </div>

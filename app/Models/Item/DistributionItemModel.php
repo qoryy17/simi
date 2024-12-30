@@ -4,6 +4,7 @@ namespace App\Models\Item;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DistributionItemModel extends Model
 {
@@ -15,7 +16,6 @@ class DistributionItemModel extends Model
         'kode_distribusi',
         'nomor_bast',
         'ruangan_id',
-        'list_distribusi_id',
         'keterangan',
         'status',
         'verifikasi_id',
@@ -23,5 +23,11 @@ class DistributionItemModel extends Model
         'diinput_oleh',
     ];
 
+
+
     public $timestamps = true;
+
+    public function listDistributionItems() : BelongsTo {
+        return $this->belongsTo(ListDistributionItemModel::class);
+    }
 }
