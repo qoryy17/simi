@@ -2,8 +2,10 @@
 
 namespace App\Models\Room;
 
+use App\Models\Item\DistributionItemModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RoomModel extends Model
 {
@@ -19,4 +21,9 @@ class RoomModel extends Model
     ];
 
     public $timestamps = true;
+
+    public function distribution(): BelongsTo
+    {
+        return $this->belongsTo(DistributionItemModel::class);
+    }
 }

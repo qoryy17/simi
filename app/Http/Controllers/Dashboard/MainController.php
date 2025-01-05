@@ -120,8 +120,9 @@ class MainController extends Controller
             'title' => 'Manajemen Distribusi Barang',
             'bc1' => 'Manajemen Barang',
             'bc2' => 'Distribusi Barang',
-            'distributionItems' => DistributionItemModel::orderBy('created_at', 'DESC')->get(), //join ke tabel room
+            'distributionItems' => DistributionItemModel::with('rooms')->orderBy('created_at', 'DESC')->get(),
         ];
+
         return view('item.distribution-items', $data);
     }
 

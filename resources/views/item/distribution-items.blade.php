@@ -51,12 +51,15 @@
                                 $no = 1;
                             @endphp
                             @foreach ($distributionItems as $item)
+                                @php
+                                    $diinput = \App\Models\User::find($item->diinput_oleh);
+                                @endphp
                                 <tr>
                                     <td>{{ $no }}</td>
                                     <td class="table-plus">{{ $item->kode_distribusi }}</td>
-                                    <td>{{ $item->ruangan }}</td>
+                                    <td>{{ $item->rooms['ruangan'] }}</td>
                                     <td>{{ $item->status }}</td>
-                                    <td>{{ $item->diinput_oleh }}</td>
+                                    <td>{{ $diinput->name }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
