@@ -28,38 +28,42 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <a href="{{ route('distribusiBarang.form', ['param' => 'add', 'id' => Crypt::encrypt('null')]) }}"
-                        class="btn btn-sm btn-primary"><i class="micon bi bi-person-plus"></i> Add
+                    <a href="{{ route('barang.form', ['param' => 'add', 'id' => Crypt::encrypt('null')]) }}"
+                        class="btn btn-sm btn-primary"><i class="micon bi bi-person-plus"></i> Tambah List Data Barang
                     </a>
+                </div>
+                <div class="pl-10 d-flex">
+                    <div class="d-flex align-items-center  justify-content-center">
+                        <h6>Kode Distribusi : </h6>
+                        <p class="btn btn-sm btn-secondary mb-0 ml-2 mr-2">adwhjduawd-wadjk-dwadji12e-d</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <h6>Ruangan : </h6>
+                        <p class="btn btn-sm btn-secondary mb-0 ml-2 mr-2">adwhjduawd-wadjk-dwadji12e-d</p>
+                    </div>
+
                 </div>
                 <div class="pb-20">
                     <table class="data-table table hover nowrap">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode Distribusi</th>
-                                <th>Ruangan</th>
-                                <th>Status</th>
-                                <th>Diinput Oleh</th>
+                                <th class="table-plus datatable-nosort">Kode Barang</th>
+                                <th>Nama Barang</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th class="datatable-nosort">Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        {{-- <tbody>
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($distributionItems as $item)
-                                @php
-                                    $diinput = \App\Models\User::find($item->diinput_oleh);
-                                @endphp
+                            @foreach ($items as $item)
                                 <tr>
-                                    <td>{{ $no }}</td>
-                                    <td class="table-plus">{{ $item->kode_distribusi }}</td>
-                                    <td>{{ $item->rooms['ruangan'] }}</td>
-                                    <td>{{ $item->status }}</td>
-                                    <td>{{ $diinput->name }}</td>
+                                    <td>1</td>
+                                    <td class="table-plus">{{ $item->kode_barang }}</td>
+                                    <td>{{ $item->nama_barang }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
@@ -70,11 +74,11 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('distribusiBarang.detail', ['id' => Crypt::encrypt($item->id)]) }}">
+                                                    href="{{ route('barang.detail', ['id' => Crypt::encrypt($item->id)]) }}">
                                                     <i class="dw dw-eye"></i> View
                                                 </a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('distribusiBarang.form', ['param' => 'edit', 'id' => Crypt::encrypt($item->id)]) }}">
+                                                    href="{{ route('barang.form', ['param' => 'edit', 'id' => Crypt::encrypt($item->id)]) }}">
                                                     <i class="dw dw-edit2"></i> Edit
                                                 </a>
                                                 <a class="dropdown-item btn-delete" href="#" data-toggle="modal"
@@ -92,7 +96,7 @@
                                     $no++;
                                 @endphp
                             @endforeach
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>
@@ -104,7 +108,7 @@
                                 Yakin ingin menghapus data ini ?
                             </h4>
                             <small>Data yang dihapus tidak dapat dikembalikan !</small>
-                            <form action="{{ route('distribusiBarang.delete') }}" method="POST">
+                            <form action="{{ route('pengguna.delete') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <div class="form-group" hidden>
@@ -137,12 +141,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function addItemDelete(element) {
-            let dataId = element.getAttribute('data-id');
-            let deleteForm = document.getElementById('itemID');
-            deleteForm.value = dataId;
-        }
-    </script>
-
 @endsection

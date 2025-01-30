@@ -86,6 +86,7 @@ class ItemController extends Controller
     {
         $request->validated();
         $formData = [
+            'id' => htmlentities($request->input('id')),
             'kode_barang' => htmlentities($request->input('kodeBarang')),
             'nama_barang' => htmlentities($request->input('namaBarang')),
             'jenis' => htmlentities($request->input('jenis')),
@@ -232,8 +233,14 @@ class ItemController extends Controller
         $unitItem = UnitItemModel::find($searchItem->satuan_barang_id);
         $conditionItem = ConditionItemModel::find($searchItem->kondisi_barang_id);
         $user = User::find($searchItem->diinput_oleh);
-        $verification = VerificationModel::find($searchItem->verifikasi_id);
-        $verifikator =  User::find($verification->verifikator_id);
+        if (VerificationModel::find($searchItem->verifikasi_id)) {
+            $verification = VerificationModel::find($searchItem->verifikasi_id);
+            $verifikator =  User::find($verification->verifikator_id);
+        } else {
+            $verification = null;
+            $verifikator = null;
+        }
+
 
         $pageTitle = 'Lembar Pendataan ' . $searchItem->nama_barang . ' Tanggal ' . $searchItem->created_at;
 

@@ -2,10 +2,11 @@
 
 namespace App\Models\Item;
 
-use App\Models\Verification\VerificationModel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Verification\VerificationModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ItemModel extends Model
 {
@@ -15,6 +16,7 @@ class ItemModel extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'id',
         'kode_barang',
         'nama_barang',
         'jenis',

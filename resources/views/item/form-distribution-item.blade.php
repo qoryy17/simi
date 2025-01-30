@@ -95,7 +95,7 @@
                                     @foreach ($rooms as $room)
                                         <option value="{{ $room->id }}"
                                             @if (old('ruangan') == $room->id) selected @endif
-                                            @if ($room && $room->ruangan_id == $room->id) selected @endif>
+                                            @if ($distributionItem->ruangan_id == $room->id) selected @endif>
                                             {{ $room->ruangan }}
                                         </option>
                                     @endforeach
@@ -116,8 +116,9 @@
                                     <option>Penerima belum tersedia...</option>
                                 @else
                                     @foreach ($officers as $item)
-                                        <option @if ($distributionItem && $distributionItem->penerima == $item->id) selected @endif
-                                            @if (old('penerima') == $item->id) selected @endif value="{{ $item->id }}">
+                                        <option value="{{ $item->id }}"
+                                            @if ($distributionItem && $distributionItem->penerima == $item->id) selected @endif
+                                            @if (old('penerima') == $item->id) selected @endif>
                                             {{ $item->nama }} ({{ $item->jabatan }})
                                         </option>
                                     @endforeach

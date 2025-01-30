@@ -60,6 +60,15 @@
                                     <div class="row">
                                         <!-- Col Left -->
                                         <div class="col-md-6">
+                                            <div class="form-group" hidden>
+                                                <label for="id">
+                                                    ID
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input class="form-control" id="id" name="id" required
+                                                    autocomplete="off" type="text" placeholder="ID"
+                                                    value="{{ Str::uuid() }}" readonly />
+                                            </div>
                                             @if ($item && Crypt::decrypt($param) == 'update')
                                                 <div class="form-group" hidden>
                                                     <label for="id">

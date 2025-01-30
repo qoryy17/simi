@@ -121,6 +121,7 @@ Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group
         Route::get('/distribusi-barang/form/{param}/{id}', 'formDistributionItem')->name('distribusiBarang.form');
         Route::post('/distribusi-barang/save', 'saveDistributionItem')->name('distribusiBarang.save');
         Route::delete('/distribusi-barang/delete', 'deleteDistributionItem')->name('distribusiBarang.delete');
+        Route::get('/distribusi-barang/detail/{id}', 'detailDistributionItem')->name('distribusiBarang.detail');
     });
 });
 

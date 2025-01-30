@@ -82,4 +82,16 @@ class DistributionItemController extends Controller
         }
         return redirect()->route('dashboard.distribusi-barang')->with('success', $success);
     }
+    public function detailDistributionItem(Request $request)
+    {
+        $searchDistributionItem = DistributionItemModel::findOrFail(Crypt::decrypt($request->id));
+
+        $data = [
+            'title' => 'Verifikasi Barang',
+            'bc1' => 'Verifikasi Barang',
+            'bc2' => 'Detail List Distribusi Barang',
+        ];
+
+        return view('item.detail-distribution-items', $data);
+    }
 }
