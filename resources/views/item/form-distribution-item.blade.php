@@ -95,7 +95,7 @@
                                     @foreach ($rooms as $room)
                                         <option value="{{ $room->id }}"
                                             @if (old('ruangan') == $room->id) selected @endif
-                                            @if ($distributionItem->ruangan_id == $room->id) selected @endif>
+                                            @if ($distributionItem && $distributionItem->ruangan_id == $room->id) selected @endif>
                                             {{ $room->ruangan }}
                                         </option>
                                     @endforeach

@@ -6,6 +6,7 @@ use App\Models\Room\RoomModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DistributionItemModel extends Model
 {
@@ -28,13 +29,13 @@ class DistributionItemModel extends Model
 
     public $timestamps = true;
 
-    public function listDistributionItems(): BelongsTo
+    public function listDistributionItems(): HasMany
     {
-        return $this->belongsTo(ListDistributionItemModel::class);
+        return $this->hasMany(ListDistributionItemModel::class, 'distribusi_barang_id', 'id');
     }
 
-    public function rooms(): BelongsTo
+    public function rooms(): HasMany
     {
-        return $this->belongsTo(RoomModel::class, 'id');
+        return $this->hasMany(RoomModel::class, 'id', 'ruangan_id');
     }
 }

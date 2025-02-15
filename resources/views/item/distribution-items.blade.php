@@ -57,7 +57,7 @@
                                 <tr>
                                     <td>{{ $no }}</td>
                                     <td class="table-plus">{{ $item->kode_distribusi }}</td>
-                                    <td>{{ $item->rooms['ruangan'] }}</td>
+                                    <td>{{ $item->rooms[0]->ruangan }}</td>
                                     <td>{{ $item->status }}</td>
                                     <td>{{ $diinput->name }}</td>
                                     <td>{{ $item->created_at }}</td>

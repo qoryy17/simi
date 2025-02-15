@@ -5,13 +5,16 @@ namespace App\Models\Item;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Verification\VerificationModel;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ItemModel extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
+    protected $keyType = 'string';
+    public $incrementing = false;
     protected $table = 'simi_barang';
     protected $primaryKey = 'id';
 

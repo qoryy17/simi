@@ -21,8 +21,12 @@ class ListDistributionItemModel extends Model
 
     public $timestamps = true;
 
-    public function distributionItems(): BelongsTo
+    public function distributionItem(): BelongsTo
     {
-        return $this->belongsTo(DistributionItemModel::class);
+        return $this->belongsTo(DistributionItemModel::class, 'distribusi_barang_id');
+    }
+    public function items(): BelongsTo
+    {
+        return $this->belongsTo(ItemModel::class, 'kode_barang', 'kode_barang');
     }
 }

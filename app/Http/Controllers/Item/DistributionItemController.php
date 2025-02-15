@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Item\DistributionItemModel;
 use App\Http\Requests\Item\DistributionItemRequest;
+use App\Http\Requests\Item\ListDistributionItemRequest;
+use App\Models\Item\ItemModel;
+use App\Models\Item\ListDistributionItemModel;
 
 class DistributionItemController extends Controller
 {
@@ -84,14 +87,57 @@ class DistributionItemController extends Controller
     }
     public function detailDistributionItem(Request $request)
     {
-        $searchDistributionItem = DistributionItemModel::findOrFail(Crypt::decrypt($request->id));
+        $distributionItem = DistributionItemModel::with('rooms')->with('listDistributionItems.items')->find(Crypt::decrypt($request->id));
+        $usedItemId = ListDistributionItemModel::pluck('barang_id')->toArray();
+        $items = ItemModel::whereNotIn('id', $usedItemId)->get();
+
 
         $data = [
             'title' => 'Verifikasi Barang',
             'bc1' => 'Verifikasi Barang',
             'bc2' => 'Detail List Distribusi Barang',
+            'distributionItem' => $distributionItem,
+            'items' => $items
         ];
 
         return view('item.detail-distribution-items', $data);
+    }
+    public function deleteDistributionItem(Request $request)
+    {
+        $item = DistributionItemModel::findOrFail(Crypt::decrypt($request->id));
+        if ($item) {
+            $item->delete();
+            return redirect()->route('dashboard.distribusi-barang')->with('success', 'Distribusi barang berhasil dihapus !');
+        }
+        return redirect()->route('dashboard.distribusi-barang')->with('error', 'Distribusi barang gagal dihapus !');
+    }
+    public function deleteListDistributionItem(Request $request)
+    {
+        $item = ListDistributionItemModel::findOrFail(Crypt::decrypt($request->id));
+        if ($item) {
+            $item->delete();
+            return redirect()->route('distribusiBarang.detail', ['id' => $request->distribution_id])->with('success', 'List barang berhasil dihapus !');
+        }
+        return redirect()->route('distribusiBarang.detail', ['id' => $request->distribution_id])->with('error', 'List barang gagal dihapus !');
+    }
+    public function saveListDistributionItem(ListDistributionItemRequest $request)
+    {
+        $request->validated();
+
+        $ItemCode = ItemModel::findOrFail($request->input("barang"));
+
+        $formData = [
+            "distribusi_barang_id" => htmlspecialchars(Crypt::decrypt($request->id)),
+            "barang_id" => htmlspecialchars($request->input("barang")),
+            "kode_barang" => $ItemCode->kode_barang,
+            "catatan" => htmlspecialchars($request->input("catatan"))
+        ];
+
+        $save = ListDistributionItemModel::create($formData);
+
+        if (!$save) {
+            return redirect()->back()->with('error', 'List Distribusi Barang gagal disimpan !')->withInput();
+        }
+        return redirect()->route('distribusiBarang.detail', ['id' => $request->id])->with('success', 'List Distribusi Barang berhasil disimpan !');
     }
 }

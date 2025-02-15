@@ -123,6 +123,7 @@ class MainController extends Controller
             'distributionItems' => DistributionItemModel::with('rooms')->orderBy('created_at', 'DESC')->get(),
         ];
 
+
         return view('item.distribution-items', $data);
     }
 

@@ -222,10 +222,10 @@
                                     <label for="keterangan">Keterangan <span class="text-danger">*</span></label>
                                     <textarea name="keterangan" id="keterangan" class="form-control" required autocomplete="off" cols="30"
                                         rows="10">
-@if ($verification)
+                                        @if ($verification)
 {{ $verification->keterangan }}
 @endif
-</textarea>
+                                    </textarea>
                                 </div>
                                 <div class="padding-bottom-30 mt-3 row">
                                     <div class="col">
