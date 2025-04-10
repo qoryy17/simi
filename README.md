@@ -7,14 +7,19 @@ SIMI is an abbreviation of Inventory Management Information System. Is a web-bas
 
 Feature of web application
 
-- Goods Data Management
-- Management of Goods Distribution Management
-- Goods Loan Management
+-   Goods Data Management
+-   Management of Goods Distribution Management
+-   Goods Loan Management
 
 ## Version
+
 Retail Version 1.0.0
 
 ## License
 
 The SIMI is not open-sourced software licensed under the Qori Chairawan, S.Kom.
 If you want to use this application, contact me for purchasing.
+
+<!-- Tasks -->
+
+<!-- Cetak Dir -->
