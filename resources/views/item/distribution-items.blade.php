@@ -58,7 +58,22 @@
                                     <td>{{ $no }}</td>
                                     <td class="table-plus">{{ $item->kode_distribusi }}</td>
                                     <td>{{ $item->rooms[0]->ruangan }}</td>
-                                    <td>{{ $item->status }}</td>
+                                    @if ($item->status == 'Selesai')
+                                        @php
+                                            $bgcolor = 'success';
+                                        @endphp
+                                    @elseif($item->status == 'Pengajuan')
+                                        @php
+                                            $bgcolor = 'warning';
+                                        @endphp
+                                    @elseif($item->status == 'Pratinjau')
+                                        @php
+                                            $bgcolor = 'primary';
+                                        @endphp
+                                    @endif
+                                    <td><span class="badge text-white bg-{{ $bgcolor }}">
+                                        {{ $item->status }}
+                                        </span></td>
                                     <td>{{ $diinput->name }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>

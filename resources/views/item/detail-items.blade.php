@@ -167,16 +167,18 @@
                             </table>
                         </div>
                     </div>
-                    <a target="_BLANK" title="Print Lembar Pendataan"
-                        href="{{ route('barang.print-collection', ['id' => Crypt::encrypt($item->id)]) }}"
-                        class="btn btn-sm btn-primary">
-                        <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Lembar Pendataan
-                    </a>
-                    @if ($verification && $verification->status == 'Disetujui')
-                        <a target="_BLANK" href="{{ route('barang.print-card', ['id' => Crypt::encrypt($item->id)]) }}"
-                            class="btn btn-sm btn-warning">
-                            <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Kartu Inventaris
+                    @if (Auth::user()->role != 'Verifikator')
+                        <a target="_BLANK" title="Print Lembar Pendataan"
+                            href="{{ route('barang.print-collection', ['id' => Crypt::encrypt($item->id)]) }}"
+                            class="btn btn-sm btn-primary">
+                            <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Lembar Pendataan
                         </a>
+                        @if ($verification && $verification->status == 'Disetujui')
+                            <a target="_BLANK" href="{{ route('barang.print-card', ['id' => Crypt::encrypt($item->id)]) }}"
+                                class="btn btn-sm btn-warning">
+                                <i class="icon-copy bi bi-file-pdf-fill"></i> Cetak Kartu Inventaris
+                            </a>
+                        @endif
                     @endif
                 </div>
             </div>

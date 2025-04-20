@@ -89,7 +89,7 @@ class DistributionItemController extends Controller
     {
         $distributionItem = DistributionItemModel::with('rooms')->with('listDistributionItems.items')->find(Crypt::decrypt($request->id));
         $usedItemId = ListDistributionItemModel::pluck('barang_id')->toArray();
-        $items = ItemModel::whereNotIn('id', $usedItemId)->get();
+        $items = ItemModel::whereNotIn('id', $usedItemId)->where('jumlah','>',0)->where('status', '=','Selesai')->get();
 
 
         $data = [

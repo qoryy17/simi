@@ -48,7 +48,7 @@
                             @endphp
                             @foreach ($rooms as $item)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{$no}}</td>
                                     <td class="table-plus">{{ $item->ruangan }}</td>
                                     <td>{{ $item->kode_ruangan }}</td>
                                     <td>{{ $item->keterangan }}</td>

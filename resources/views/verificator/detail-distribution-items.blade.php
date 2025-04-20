@@ -31,115 +31,52 @@
                         <table class="table">
                             <tr>
                                 <td colspan="4">
-                                    <h5>Informasi Pendataan Barang</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <img class="img img-fluid" src="{{ asset('storage/' . $item->file_image) }}"
-                                        alt="Gambar {{ $item->nama_barang }}">
+                                    <h5>Informasi Pendistribusian Barang</h5>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="20%">Kode</td>
-                                <td colspan="3">{{ $item->kode_barang }}</td>
+                                <td colspan="3">{{ $distributionItem->kode_distribusi }}</td>
                             </tr>
                             <tr>
-                                <td>Nama</td>
-                                <td colspan="3">{{ $item->nama_barang }}</td>
+                                <td>Nomor Bast</td>
+                                <td colspan="3">{{ $distributionItem->nomor_bast }}</td>
                             </tr>
                             <tr>
-                                <td>Jenis</td>
-                                <td colspan="3">{{ $item->jenis }}</td>
-                            </tr>
-                            <tr>
-                                <td>Merek</td>
-                                <td>{{ $item->merek }}</td>
-                                <td width="2%">Tipe</td>
-                                <td>{{ $item->tipe }}</td>
-                            </tr>
-                            <tr>
-                                <td>Nomor Seri</td>
-                                <td colspan="3">{{ $item->nomor_seri }}</td>
-                            </tr>
-                            <tr>
-                                <td>Ukuran</td>
-                                <td colspan="3">{{ $item->ukuran }}</td>
-                            </tr>
-                            <tr>
-                                <td>Bahan</td>
-                                <td colspan="3">{{ $item->bahan }}</td>
-                            </tr>
-                            <tr>
-                                <td>Jumlah</td>
-                                <td colspan="3">{{ $item->jumlah }} {{ $unitItem->satuan }}</td>
-                            </tr>
-                            <tr>
-                                <td>Harga</td>
-                                <td colspan="3">Rp.{{ Number::Format($item->harga, 0) }}</td>
-                            </tr>
-                            <tr>
-                                <td>Total Harga </td>
+                                <td>Ruangan</td>
                                 <td colspan="3">
-                                    Rp.{{ Number::Format(intval($item->jumlah) * intval($item->harga), 0) }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sumber Dana</td>
-                                <td colspan="3">{{ $item->sumber_dana }}</td>
-                            </tr>
-                            <tr>
-                                <td>Kondisi</td>
-                                <td colspan="3">{{ $conditionItem->kondisi }}</td>
-                            </tr>
-                            <tr>
-                                <td>Tahun Pengadaan</td>
-                                <td colspan="3">{{ $item->tahun_pengadaan }}</td>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align: top;">Informasi Kontrak</td>
-                                <td colspan="3">
-                                    Nomor ({{ $item->nomor_kontrak }})
-                                    <br>
-                                    Tanggal
-                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d', $item->tanggal_kontrak)->format('d F Y') }}
-                                    <br>
-                                    <a target="_BLANK" href="{{ asset('storage/' . $item->file_edoc) }}"
-                                        title="Lihat Kontrak">
-                                        <i class="icon-copy bi bi-eye"></i>
-                                        Lihat Kontrak
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Di-input Oleh</td>
-                                <td colspan="3">{{ $user->name }} ({{ $user->email }}) | Timestamp :
-                                    {{ $item->created_at }}</td>
-                            </tr>
-                            <tr>
-                                <td>Status Pengajuan</td>
-                                <td colspan="3">
-                                    @if ($item->status == 'Pratinjau')
-                                        @php
-                                            $color = 'warning';
-                                        @endphp
-                                    @elseif ($item->status == 'Pengajuan')
-                                        @php
-                                            $color = 'primary';
-                                        @endphp
-                                    @elseif ($item->status == 'Selesai')
-                                        @php
-                                            $color = 'success';
-                                        @endphp
-                                    @endif
-                                    <span class="badge bg-{{ $color }} text-white">
-                                        {{ $item->status }}
-                                    </span>
+                                    @foreach ($distributionItem->rooms as $room)
+                                        {{ $room->ruangan }}
+                                    @endforeach
                                 </td>
                             </tr>
                             <tr>
                                 <td>Keterangan</td>
-                                <td colspan="3">{{ $item->keterangan }}</td>
+                                <td colspan="3">{{ $distributionItem->keterangan }}</td>
+                            </tr>
+                            @if ($distributionItem->status == 'Selesai')
+                                @php
+                                    $bgcolor = 'success';
+                                @endphp
+                            @elseif($distributionItem->status == 'Pengajuan')
+                                @php
+                                    $bgcolor = 'warning';
+                                @endphp
+                            @elseif($distributionItem->status == 'Pratinjau')
+                                @php
+                                    $bgcolor = 'primary';
+                                @endphp
+                            @endif
+                            <tr>
+                                <td>Status Pengajuan</td>
+                                <td colspan="3"><span class="badge text-white bg-{{ $bgcolor }}">
+                                        {{ $distributionItem->status }}
+                                    </span></td>
+                            </tr>
+                            <tr>
+                                <td>Di-input Oleh</td>
+                                <td colspan="3">{{ $user->name }} ({{ $user->email }}) | Timestamp :
+                                    {{ $distributionItem->created_at }}</td>
                             </tr>
                             <tr>
                                 <td style="vertical-align: top;">Catatan Verifikator</td>
@@ -163,6 +100,40 @@
                                     @endif
                                 </td>
                             </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <h5>List Distribusi Barang</h5>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th class="datatable-nosort">Action</th>
+                            </tr>
+                            @foreach ($listDistributionItems->get() as $listDistributionItem)
+                                <tr>
+                                    <td>{{ $listDistributionItem->kode_barang }}</td>
+                                    <td>{{ $listDistributionItem->items->nama_barang }}</td>
+                                    <td>{{ $listDistributionItem->created_at }}</td>
+                                    <td>{{ $listDistributionItem->updated_at }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                                href="#" role="button" data-toggle="dropdown">
+                                                <i class="dw dw-more"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('barang.detail', ['id' => Crypt::encrypt($listDistributionItem->items->id)]) }}">
+                                                    <i class="dw dw-eye"></i> View
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </table>
                     </div>
                     @if ($errors->any())
@@ -176,8 +147,8 @@
                     @endif
 
                     <a href="javascript:void(0);" class="btn btn-sm btn-primary btn-delete" data-toggle="modal"
-                        type="button" data-target="#confirmation-modal" data-id="{{ Crypt::encrypt($item->id) }}"
-                        onclick="addItemDelete(this)">
+                        type="button" data-target="#confirmation-modal"
+                        data-id="{{ Crypt::encrypt($distributionItem->id) }}" onclick="addItemDelete(this)">
                         <i class="icon-copy bi bi-check-circle"></i> Verifikasi
                     </a>
                 </div>
@@ -204,11 +175,11 @@
                                 </div>
                                 <div class="form-group" hidden>
                                     <input type="text" class="form-control" required readonly placeholder="type"
-                                        value="item" name="type" id="type">
+                                        value="distribution" name="type" id="type">
                                 </div>
                                 <div class="form-group" hidden>
                                     <input type="text" class="form-control" required readonly placeholder="ID...."
-                                        value="{{ Crypt::encrypt($item->verifikasi_id) }}" name="idVerifikasi"
+                                        value="{{ Crypt::encrypt($distributionItem->verifikasi_id) }}" name="idVerifikasi"
                                         id="verificationID">
                                 </div>
                                 <div class="form-group">

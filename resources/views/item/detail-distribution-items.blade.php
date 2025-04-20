@@ -165,7 +165,7 @@
                                     @foreach ($items as $item)
                                         <option value="{{ $item->id }}"
                                             @if (old('barang') == $item->id) selected @endif>
-                                            {{ $item->nama_barang }} - {{ $item->nomor_seri }}
+                                            {{ $item->nama_barang }} - {{ $item->nomor_seri }} | Jumlah Unit : {{ $item->jumlah }}
                                         </option>
                                     @endforeach
                                 @endif
@@ -173,6 +173,10 @@
                             @error('barang')
                                 <small class="text-danger">* {{ $message }}</small>
                             @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlahUnit">Jumlah Unit</label>
+                            <input type="number" class="form-control" id="jumlahUnit" name="jumlahUnit" placeholder="Masukkan jumlah unit..">
                         </div>
                         <div class="form-group">
                             <label for="catatan">Catatan</label>

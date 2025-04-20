@@ -130,7 +130,12 @@ Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group
 Route::middleware(AuthMiddleware::class)->group(function () {
     Route::controller(VerificatorController::class)->group(function () {
         Route::get('/barang/verifikasi', 'itemVerified')->name('verifikator.item');
+        Route::get('/barang/verifikasi-distribusi', 'distributionItemVerified')->name('verifikator.distribution-item');
+        Route::get('/barang/detail/verifikasi-distribusi/{id}', 'detailDistributionItem')->name('verifikator.detail-distribution-item');
         Route::get('/barang/detail/verifikasi/{id}', 'detailItem')->name('verifikator.detail-item');
-        Route::post('/barang/verified', 'changeVerified')->name('verifikator.change-verified');
+        Route::post('/barang/verified/', 'changeVerified')->name('verifikator.change-verified');
+    });
+    Route::controller(ItemController::class)->group(function () {
+        Route::get('/barang/detail/{id}', 'detailItem')->name('barang.detail');
     });
 });

@@ -157,6 +157,7 @@
                         @endif
                         @if (Auth::user()->role == 'Verifikator')
                             <li><a href="{{ route('verifikator.item') }}">Verifikasi</a></li>
+                            <li><a href="{{ route('verifikator.distribution-item') }}">Verifikasi Distribusi</a></li>
                         @endif
                     </ul>
                 </li>
