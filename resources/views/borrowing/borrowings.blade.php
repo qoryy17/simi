@@ -25,7 +25,7 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <a href="{{ route('ruangan.form', ['param' => 'add', 'id' => Crypt::encrypt('null')]) }}"
+                    <a href="{{ route('peminjamanBarang.form', ['param' => 'add', 'id' => Crypt::encrypt('null')]) }}"
                         class="btn btn-sm btn-primary"><i class="micon bi bi-person-plus"></i> Add
                     </a>
                 </div>
@@ -44,39 +44,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td class="table-plus">P-097878</td>
-                                <td>Muhammad Syahdana, S.Kom</td>
-                                <td>1 Hari</td>
-                                <td>
-                                    <span class="badge bg-warning">Peminjaman</span>
-                                </td>
-                                <td>{{ date('d-m-Y') }}</td>
-                                <td>{{ date('d-m-Y') }}</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                            href="#" role="button" data-toggle="dropdown">
-                                            <i class="dw dw-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                            <a class="dropdown-item" href="#">
-                                                <i class="dw dw-eye"></i> View
+                            @forelse ($borrowingItems as $item)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td class="table-plus">{{ $item->room->nama_ruangan }}</td>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->durasi }} Hari</td>
+                                    <td>
+                                        @if ($item->status == 'pending')
+                                            <span class="badge badge-warning">{{ $item->status }}</span>
+                                        @elseif ($item->status == 'approved')
+                                            <span class="badge badge-success">{{ $item->status }}</span>
+                                        @else
+                                            <span class="badge badge-danger">{{ $item->status }}</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $item->created_at->format('d-m-Y H:i:s') }}</td>
+                                    <td>{{ $item->updated_at->format('d-m-Y H:i:s') }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a class="btn btn-primary dropdown-toggle" href="#" role="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Action
                                             </a>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="dw dw-print"></i> Print
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="dw dw-edit2"></i> Edit
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="dw dw-delete-3"></i> Delete
-                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('peminjamanBarang.form', ['param' => 'update', 'id' => Crypt::encrypt($item->id)]) }}">Edit</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('peminjamanBarang.delete', ['id' => Crypt::encrypt($item->id)]) }}"
+                                                    onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center">Data tidak Ditemukan</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

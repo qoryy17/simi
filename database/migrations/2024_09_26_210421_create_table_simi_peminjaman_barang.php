@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('simi_peminjaman_barang', function (Blueprint $table) {
             $table->id();
             $table->string('kode_peminjaman');
-            $table->unsignedBigInteger('list_peminjaman_id')->nullable();
             $table->integer('durasi')->comment('hitungan hari');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian');
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->bigInteger('diinput_oleh');
             $table->timestamps();
 
-            $table->foreign('list_peminjaman_id')->references('id')->on('simi_list_peminjaman_barang')->onDelete('set null')->onUpdate('cascade');
             $table->foreign('ruangan_id')->references('id')->on('simi_ruangan')->onDelete('restrict')->onUpdate('cascade');
             $table->foreign('pegawai_id')->references('id')->on('simi_pegawai')->onDelete('restrict')->onUpdate('cascade');
         });

@@ -13,6 +13,7 @@ use App\Http\Controllers\Position\PositionController;
 use App\Http\Controllers\Item\ConditionItemController;
 use App\Http\Controllers\Authentication\AuthController;
 use App\Http\Controllers\Authentication\SigninController;
+use App\Http\Controllers\Borrowing\BorrowingController;
 use App\Http\Controllers\Item\DistributionItemController;
 use App\Http\Controllers\Verification\VerificationController;
 use App\Http\Controllers\Verificator\VerificatorController;
@@ -97,6 +98,7 @@ Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group
         Route::get('/barang/detail/{id}', 'detailItem')->name('barang.detail');
         Route::get('/barang/cetak-pendataan/{id}', 'printItemCollection')->name('barang.print-collection');
         Route::get('/barang/cetak-kartu/{id}', 'printItemCard')->name('barang.print-card');
+        Route::get('/barang/cetak-dir/{id}', 'printListDistributionItem')->name('barang.print-list-distribution-item');
     });
 });
 
@@ -105,6 +107,17 @@ Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group
         Route::get('/satuan-barang/form/{param}/{id}', 'formUnitItem')->name('satuanBarang.form');
         Route::post('/satuan-barang/save', 'saveUnitItem')->name('satuanBarang.save');
         Route::delete('/satuan-barang/delete', 'deleteUnitItem')->name('satuanBarang.delete');
+    });
+});
+
+
+
+
+Route::middleware(AuthMiddleware::class, NonVerificatorMiddleware::class)->group(function () {
+    Route::controller(BorrowingController::class)->group(function () {
+        Route::get('/peminjaman-barang/form/{param}/{id}', 'formBorrowingItem')->name('peminjamanBarang.form');
+        Route::post('/peminjaman-barang/save', 'saveBorrowingItem')->name('peminjamanBarang.save');
+        Route::delete('/peminjaman-barang/delete', 'deleteBorrowingItem')->name('peminjamanBarang.delete');
     });
 });
 

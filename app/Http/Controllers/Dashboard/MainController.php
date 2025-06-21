@@ -18,6 +18,7 @@ use App\Models\Position\PositionModel;
 use App\Models\Item\ConditionItemModel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Setting\SettingRequest;
+use App\Models\Borrow\BorrowingItemModel;
 
 class MainController extends Controller
 {
@@ -132,6 +133,9 @@ class MainController extends Controller
         $data = [
             'title' => 'Manajemen Peminjaman',
             'bc1' => 'Peminjaman',
+            'borrowingItems' => BorrowingItemModel::with('room', 'officer')
+                ->orderBy('created_at', 'DESC')
+                ->get()
         ];
         return view('borrowing.borrowings', $data);
     }

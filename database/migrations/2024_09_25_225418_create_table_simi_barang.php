@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('ukuran');
             $table->string('bahan');
             $table->integer('jumlah');
+            $table->integer('stok_distribusi')->nullable();
             $table->unsignedBigInteger('satuan_barang_id')->nullable();
             $table->integer('harga');
             $table->string('sumber_dana');

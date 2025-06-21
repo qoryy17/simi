@@ -13,6 +13,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\Item\ItemRequest;
 use App\Models\Item\ConditionItemModel;
+use App\Models\Item\DistributionItemModel;
+use App\Models\Officer\OfficerModel;
 use App\Models\Setting\SettingModel;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Verification\VerificationModel;
@@ -96,6 +98,7 @@ class ItemController extends Controller
             'ukuran' => htmlentities($request->input('ukuran')),
             'bahan' => htmlentities($request->input('bahan')),
             'jumlah' => htmlentities($request->input('jumlah')),
+            'stok_distribusi' => htmlentities($request->input('jumlah')),
             'satuan_barang_id' => htmlentities($request->input('satuan')),
             'harga' => htmlentities($request->input('harga')),
             'sumber_dana' => htmlentities($request->input('sumberDana')),
@@ -284,5 +287,27 @@ class ItemController extends Controller
         return $pdf->stream($pageTitle . '.pdf');
 
         // return view('item.pdf.template-pdf-inventory-card', $data);
+    }
+    public function printListDistributionItem(Request $request)
+    {
+        $searchDistributionItem =DistributionItemModel::with('rooms')->with('listDistributionItems.items')->find(Crypt::decrypt($request->id));
+        $pageTitle = 'Daftar Inventaris Ruangan, Tanggal' . $searchDistributionItem->created_at;
+        $searchReceiver = OfficerModel::findOrfail($searchDistributionItem->penerima);
+        $searchVerificator = VerificationModel::findOrfail($searchDistributionItem->verifikasi_id);
+        $verifikator = User::findOrfail($searchVerificator->verifikator_id);
+
+        $data = [
+            'title' => 'Daftar Inventaris Ruangan',
+            'bc1' => 'Daftar Inventaris Ruangan',
+            'bc2' => 'Detail : ' . $searchDistributionItem->rooms[0]->ruangan,
+            'distribution' => $searchDistributionItem,
+            'institusi' => SettingModel::first(),
+            'pageTitle' => $pageTitle,
+            'penerima' => $searchReceiver,
+            'verifikator' => $verifikator
+        ];
+        $pdf = PDF::loadView('item.pdf.template-pdf-dir', $data);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream($pageTitle . '.pdf');
     }
 }

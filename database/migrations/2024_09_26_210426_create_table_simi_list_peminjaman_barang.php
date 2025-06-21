@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('simi_list_peminjaman_barang', function (Blueprint $table) {
             $table->id();
             $table->string('kode_peminjaman');
+            $table->unsignedBigInteger('peminjaman_barang_id');
             $table->char('barang_id');
             $table->string('kode_barang');
             $table->timestamps();
 
+            $table->foreign('peminjaman_barang_id')->references('id')->on('simi_peminjaman_barang')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('barang_id')->references('id')->on('simi_barang')->onDelete('cascade')->onUpdate('cascade');
         });
     }

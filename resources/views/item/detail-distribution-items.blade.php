@@ -45,7 +45,14 @@
                         <h6>Ruangan : </h6>
                         <p class="btn btn-sm btn-secondary mb-0 ml-2 mr-2">{{ $distributionItem->rooms[0]->ruangan }}</p>
                     </div>
-
+                    <div class="d-flex align-items-center justify-content-center">
+                        <h6>Cetak  DIR: </h6>
+                        @if ($distributionItem->status == 'Selesai')
+                        <a href="{{ route('barang.print-list-distribution-item',Crypt::encrypt($distributionItem->id)) }}" class="btn btn-sm btn-warning  mb-0 ml-2 mr-2">
+                            Cetak
+                        </a>
+                        @endif
+                    </div>
                 </div>
                 <div class="pb-20 pt-30">
                     <table class="data-table table hover nowrap">
@@ -176,7 +183,7 @@
                         </div>
                         <div class="form-group">
                             <label for="jumlahUnit">Jumlah Unit</label>
-                            <input type="number" class="form-control" id="jumlahUnit" name="jumlahUnit" placeholder="Masukkan jumlah unit..">
+                            <input type="number" class="form-control" id="jumlahUnit" name="jumlahUnit" placeholder="Masukkan jumlah unit.." >
                         </div>
                         <div class="form-group">
                             <label for="catatan">Catatan</label>

@@ -40,7 +40,6 @@
                                 <th>Kode Distribusi</th>
                                 <th>Ruangan</th>
                                 <th>Status</th>
-                                <th>Diinput Oleh</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th class="datatable-nosort">Action</th>
@@ -74,7 +73,6 @@
                                     <td><span class="badge text-white bg-{{ $bgcolor }}">
                                         {{ $item->status }}
                                         </span></td>
-                                    <td>{{ $diinput->name }}</td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
